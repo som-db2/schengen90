@@ -27,6 +27,6 @@ struct Schengen90App: App {
         WindowGroup {
             MainTabView()
         }
-        .modelContainer(sharedModelContainer)
+        .modelContainer(for: Trip.self)
     }
 }
