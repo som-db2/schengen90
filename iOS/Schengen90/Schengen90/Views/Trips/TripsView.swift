@@ -38,6 +38,7 @@ struct TripsView: View {
 
                         Image(systemName: "plus")
                             .font(.title2)
+                            .padding(8)
 
                     }
 
@@ -51,7 +52,7 @@ struct TripsView: View {
                         spacing: AppSpacing.medium
                     ) {
 
-                        Image(systemName: "airplane")
+                        Image(systemName: "airplane.departure")
 
                             .font(.system(size: 48))
                             .foregroundStyle(AppColors.primary)
@@ -63,6 +64,7 @@ struct TripsView: View {
                             .font(AppTypography.body)
                             .foregroundStyle(AppColors.secondaryText)
                             .multilineTextAlignment(.center)
+                            .frame(maxWidth: 280)
 
                         PrimaryButton(
                             title: "Add Trip"
