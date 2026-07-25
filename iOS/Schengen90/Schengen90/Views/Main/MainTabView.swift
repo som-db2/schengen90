@@ -9,9 +9,12 @@ import SwiftUI
 
 struct MainTabView: View {
 
+@State
+    private var selectedTab = 0
+    
     var body: some View {
 
-        TabView {
+        TabView(selection: $selectedTab) {
 
             NavigationStack {
 
@@ -20,12 +23,10 @@ struct MainTabView: View {
             }
             .tabItem {
 
-                Label(
-                    "Home",
-                    systemImage: "house"
-                )
+                Label("Home",systemImage: "house")
 
             }
+            .tag(0)
 
             NavigationStack {
 
@@ -34,12 +35,11 @@ struct MainTabView: View {
             }
             .tabItem {
 
-                Label(
-                    "Trips",
-                    systemImage: "airplane"
+                Label("Trips",systemImage: "airplane"
                 )
 
             }
+            .tag(0)
 
             NavigationStack {
 
@@ -48,12 +48,11 @@ struct MainTabView: View {
             }
             .tabItem {
 
-                Label(
-                    "Planner",
-                    systemImage: "calendar"
+                Label("Planner",systemImage: "calendar"
                 )
 
             }
+            .tag(0)
 
             NavigationStack {
 
@@ -62,12 +61,11 @@ struct MainTabView: View {
             }
             .tabItem {
 
-                Label(
-                    "Settings",
-                    systemImage: "gearshape"
+                Label("Settings",systemImage: "gearshape"
                 )
 
             }
+            .tag(0)
 
         }
 
