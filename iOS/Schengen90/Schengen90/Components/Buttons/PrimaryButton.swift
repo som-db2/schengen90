@@ -34,4 +34,10 @@ struct PrimaryButton: View {
 
     }
     .padding()
+    .shadow(
+        color: .black.opacity(0.08),
+        radius: AppShadow.radius,
+        x: AppShadow.x,
+        y: AppShadow.y
+    )
 }
