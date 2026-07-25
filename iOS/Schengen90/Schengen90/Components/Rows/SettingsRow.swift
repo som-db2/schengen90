@@ -11,28 +11,79 @@ struct SettingsRow: View {
 
     let title: String
     let icon: String
-    let action: () -> Void
+    let value: String?
+    let action: (() -> Void)?
+    let isDestructive: Bool
+
+    init(
+        title: String,
+        icon: String,
+        value: String? = nil,
+        isDestructive: Bool = false,
+        action: (() -> Void)? = nil
+    ) {
+        self.title = title
+        self.icon = icon
+        self.value = value
+        self.isDestructive = isDestructive
+        self.action = action
+    }
 
     var body: some View {
 
-        Button {
+        Group {
 
-            action()
+            if let action {
 
-        } label: {
+                Button {
 
-            CardContainer {
+                    action()
 
-                HStack(spacing: AppSpacing.medium) {
+                } label: {
 
-                    Image(systemName: icon)
-                        .foregroundStyle(AppColors.primary)
-                        .frame(width: 24)
+                    rowContent(showChevron: true)
 
-                    Text(title)
+                }
+                .buttonStyle(.plain)
+
+            } else {
+
+                rowContent(showChevron: false)
+
+            }
+
+        }
+
+    }
+
+    @ViewBuilder
+    private func rowContent(showChevron: Bool) -> some View {
+
+        CardContainer {
+
+            HStack(spacing: AppSpacing.medium) {
+
+                Image(systemName: icon)
+                    .foregroundStyle(
+                        isDestructive ? Color.red : AppColors.primary)
+                    .frame(width: 24)
+
+                Text(title)
+                    .foregroundStyle(
+                        isDestructive ? Color.red : .primary
+                    )
+
+                Spacer()
+
+                if let value {
+
+                    Text(value)
                         .font(AppTypography.body)
+                        .foregroundStyle(.secondary)
 
-                    Spacer()
+                }
+
+                if showChevron {
 
                     Image(systemName: "chevron.right")
                         .font(.caption.weight(.semibold))
@@ -43,7 +94,6 @@ struct SettingsRow: View {
             }
 
         }
-        .buttonStyle(.plain)
 
     }
 
@@ -55,20 +105,22 @@ struct SettingsRow: View {
 
         SettingsRow(
             title: "Calculation Rules",
-            icon: "function",
-            action: {}
-        )
+            icon: "function"
+        ) {
+            print("Tapped")
+        }
 
         SettingsRow(
             title: "Date Format",
-            icon: "calendar",
-            action: {}
-        )
+            icon: "calendar"
+        ) {
+            print("Tapped")
+        }
 
         SettingsRow(
-            title: "Privacy Policy",
-            icon: "hand.raised",
-            action: {}
+            title: "App Version",
+            icon: "info.circle",
+            value: "1.0.0"
         )
 
     }
