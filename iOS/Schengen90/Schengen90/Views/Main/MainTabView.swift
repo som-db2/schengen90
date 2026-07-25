@@ -39,7 +39,7 @@ struct MainTabView: View {
                 )
 
             }
-            .tag(0)
+            .tag(1)
 
             NavigationStack {
 
@@ -52,7 +52,7 @@ struct MainTabView: View {
                 )
 
             }
-            .tag(0)
+            .tag(2)
 
             NavigationStack {
 
@@ -65,7 +65,7 @@ struct MainTabView: View {
                 )
 
             }
-            .tag(0)
+            .tag(3)
 
         }
 
