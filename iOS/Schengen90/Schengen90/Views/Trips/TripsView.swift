@@ -139,7 +139,7 @@ struct TripsView: View {
                             spacing: AppSpacing.medium
                         ) {
 
-                            Image(systemName: "airplane.circle.fill")
+                            Image(systemName: "airplane.departure")
                                 .font(.system(size: 48))
                                 .foregroundStyle(AppColors.primary)
 
