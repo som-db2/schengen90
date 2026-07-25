@@ -23,6 +23,12 @@ struct CardContainer<Content: View>: View {
                 cornerRadius: AppCornerRadius.card
             )
         )
+        .shadow(
+            color: .black.opacity(0.08),
+            radius: AppShadow.radius,
+            x: AppShadow.x,
+            y: AppShadow.y
+        )
     }
 }
 
