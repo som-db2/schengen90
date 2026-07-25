@@ -14,8 +14,6 @@ import SwiftUI
 
 struct TripCard: View {
 
-    let country: String
-    let flag: String
     let entryDate: String
     let exitDate: String
     let duration: String
@@ -35,22 +33,12 @@ struct TripCard: View {
 
                 HStack(alignment: .top) {
 
-                    Text(country)
-                        .font(AppTypography.heading)
-
-                    Spacer()
-
                     StatusBadge(
                         title: status,
                         color: statusColor
                     )
 
                 }
-
-                // MARK: - Flag
-
-                Text(flag)
-                    .font(.system(size: 40))
 
                 // MARK: - Dates
 
@@ -76,8 +64,6 @@ struct TripCard: View {
     VStack(spacing: 20) {
 
         TripCard(
-            country: "Netherlands",
-            flag: "🇳🇱",
             entryDate: "11 Jun 2026",
             exitDate: "16 Jul 2026",
             duration: "Duration: 36 days",
@@ -86,8 +72,6 @@ struct TripCard: View {
         )
 
         TripCard(
-            country: "France",
-            flag: "🇫🇷",
             entryDate: "02 Sep 2026",
             exitDate: "15 Sep 2026",
             duration: "Duration: 14 days",

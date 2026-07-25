@@ -60,8 +60,6 @@ struct TripsView: View {
                         .font(AppTypography.heading)
 
                     TripCard(
-                        country: "Netherlands",
-                        flag: "🇳🇱",
                         entryDate: "11 Jun 2026",
                         exitDate: "16 Jul 2026",
                         duration: "Duration: 36 days",
@@ -70,11 +68,17 @@ struct TripsView: View {
                     )
 
                     TripCard(
-                        country: "Netherlands",
-                        flag: "🇳🇱",
                         entryDate: "05 May 2026",
                         exitDate: "16 May 2026",
                         duration: "Duration: 12 days",
+                        status: "Completed",
+                        statusColor: AppColors.success
+                    )
+                    
+                    TripCard(
+                        entryDate: "10 Feb 2026",
+                        exitDate: "17 Mar 2026",
+                        duration: "Duration: 36 days",
                         status: "Completed",
                         statusColor: AppColors.success
                     )
@@ -85,21 +89,33 @@ struct TripsView: View {
                         .font(AppTypography.heading)
 
                     TripCard(
-                        country: "Netherlands",
-                        flag: "🇳🇱",
-                        entryDate: "10 Feb 2025",
-                        exitDate: "17 Mar 2025",
-                        duration: "Duration: 36 days",
-                        status: "Completed",
-                        statusColor: AppColors.success
-                    )
-
-                    TripCard(
-                        country: "Netherlands",
-                        flag: "🇳🇱",
                         entryDate: "26 Dec 2025",
                         exitDate: "07 Jan 2026",
                         duration: "Duration: 13 days",
+                        status: "Completed",
+                        statusColor: AppColors.success
+                    )
+                    
+                    TripCard(
+                        entryDate: "26 June 2025",
+                        exitDate: "24 July 2026",
+                        duration: "Duration: 29 days",
+                        status: "Completed",
+                        statusColor: AppColors.success
+                    )
+                    
+                    TripCard(
+                        entryDate: "13 May 2025",
+                        exitDate: "20 May 2025",
+                        duration: "Duration: 8 days",
+                        status: "Completed",
+                        statusColor: AppColors.success
+                    )
+                    
+                    TripCard(
+                        entryDate: "04 Feb 2025",
+                        exitDate: "04 Mar 2025",
+                        duration: "Duration: 29 days",
                         status: "Completed",
                         statusColor: AppColors.success
                     )
@@ -110,21 +126,17 @@ struct TripsView: View {
                         .font(AppTypography.heading)
 
                     TripCard(
-                        country: "Netherlands",
-                        flag: "🇳🇱",
-                        entryDate: "06 May 2024",
-                        exitDate: "27 May 2024",
-                        duration: "Duration: 22 days",
-                        status: "Completed",
-                        statusColor: AppColors.success
-                    )
-
-                    TripCard(
-                        country: "Netherlands",
-                        flag: "🇳🇱",
                         entryDate: "01 Jul 2024",
                         exitDate: "15 Jul 2024",
                         duration: "Duration: 15 days",
+                        status: "Completed",
+                        statusColor: AppColors.success
+                    )
+                    
+                    TripCard(
+                        entryDate: "06 May 2024",
+                        exitDate: "27 May 2024",
+                        duration: "Duration: 22 days",
                         status: "Completed",
                         statusColor: AppColors.success
                     )
