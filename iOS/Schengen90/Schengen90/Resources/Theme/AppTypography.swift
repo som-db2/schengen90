@@ -20,4 +20,6 @@ enum AppTypography {
     static let bodyBold = Font.body.weight(.semibold)
 
     static let caption = Font.caption
+    
+    static let hero = Font.system(size: 56, weight: .bold)
 }
