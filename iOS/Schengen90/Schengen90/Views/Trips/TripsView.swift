@@ -5,26 +5,26 @@
 //  Created by Som Kundu on 25/07/26.
 //
 
-//
-//  TripsView.swift
-//  Schengen90
-//
-//  Created by Som Kundu on 26/07/26.
-//
-
 import SwiftUI
 import SwiftData
 
 struct TripsView: View {
 
     // MARK: - SwiftData
-    
+
     @Query(
         sort: \Trip.entryDate,
         order: .reverse
     )
     private var trips: [Trip]
-    
+
+    // MARK: - State
+
+    @State
+    private var showingAddTrip = false
+
+    // MARK: - Body
+
     var body: some View {
 
         ScrollView {
@@ -44,9 +44,8 @@ struct TripsView: View {
                     Spacer()
 
                     Button {
-                        
-                        // Tomorrow:
-                        // Present AddTripView
+
+                        showingAddTrip = true
 
                     } label: {
 
@@ -81,7 +80,7 @@ struct TripsView: View {
                         status: "Completed",
                         statusColor: AppColors.success
                     )
-                    
+
                     TripCard(
                         entryDate: "10 Feb 2026",
                         exitDate: "17 Mar 2026",
@@ -102,7 +101,7 @@ struct TripsView: View {
                         status: "Completed",
                         statusColor: AppColors.success
                     )
-                    
+
                     TripCard(
                         entryDate: "26 June 2025",
                         exitDate: "24 July 2026",
@@ -110,7 +109,7 @@ struct TripsView: View {
                         status: "Completed",
                         statusColor: AppColors.success
                     )
-                    
+
                     TripCard(
                         entryDate: "13 May 2025",
                         exitDate: "20 May 2025",
@@ -118,7 +117,7 @@ struct TripsView: View {
                         status: "Completed",
                         statusColor: AppColors.success
                     )
-                    
+
                     TripCard(
                         entryDate: "04 Feb 2025",
                         exitDate: "04 Mar 2025",
@@ -139,7 +138,7 @@ struct TripsView: View {
                         status: "Completed",
                         statusColor: AppColors.success
                     )
-                    
+
                     TripCard(
                         entryDate: "06 May 2024",
                         exitDate: "27 May 2024",
@@ -165,7 +164,7 @@ struct TripsView: View {
                             Text("No Trips Yet")
                                 .font(AppTypography.heading)
 
-                            Text("Add your first Schengen trip to start calculating your remaining days.")
+                            Text("Add your Schengen trips from the last 180 days to begin calculating your remaining stay.")
                                 .font(AppTypography.body)
                                 .foregroundStyle(AppColors.secondaryText)
                                 .multilineTextAlignment(.center)
@@ -174,6 +173,8 @@ struct TripsView: View {
                             PrimaryButton(
                                 title: "Add Trip"
                             ) {
+
+                                showingAddTrip = true
 
                             }
 
@@ -190,6 +191,11 @@ struct TripsView: View {
             .padding(.bottom, AppSpacing.large)
 
         }
+        .sheet(isPresented: $showingAddTrip) {
+
+            AddTripView()
+
+        }
         .background(AppColors.background)
 
     }
@@ -197,6 +203,8 @@ struct TripsView: View {
 }
 
 #Preview {
+
     TripsView()
         .modelContainer(for: Trip.self, inMemory: true)
+
 }
