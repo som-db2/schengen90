@@ -9,16 +9,21 @@ import Foundation
 
 struct DateCalculator {
 
+    private static let calendar = Calendar.current
+
+    static func normalizedDate(_ date: Date) -> Date {
+
+        calendar.startOfDay(for: date)
+
+    }
+
     static func stayDays(
         from entryDate: Date,
         to exitDate: Date
     ) -> Int {
 
-        let calendar = Calendar.current
-
-        let entry = calendar.startOfDay(for: entryDate)
-
-        let exit = calendar.startOfDay(for: exitDate)
+        let entry = normalizedDate(entryDate)
+        let exit = normalizedDate(exitDate)
 
         let difference = calendar.dateComponents(
             [.day],
