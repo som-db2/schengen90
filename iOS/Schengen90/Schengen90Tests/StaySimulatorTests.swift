@@ -17,5 +17,23 @@ struct StaySimulatorTests {
         _ = StaySimulator()
 
     }
+    
+    @Test
+    func emptyHistoryAllowsNinetyDayStay() {
+
+        let formatter = DateFormatter.tripDate
+
+        let simulator = StaySimulator()
+
+        let result = simulator.simulate(
+            occupiedDates: [],
+            proposedEntryDate: formatter.date(from: "01 Jan 2026")!
+        )
+
+        #expect(result.latestLegalExit == formatter.date(from: "31 Mar 2026")!)
+
+        #expect(result.simulatedDays == 90)
+
+    }
 
 }
