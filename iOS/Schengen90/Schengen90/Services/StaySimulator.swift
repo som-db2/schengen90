@@ -14,7 +14,24 @@ struct StaySimulator {
         proposedEntryDate: Date
     ) -> StaySimulationResult {
 
-        fatalError("Not implemented")
+        let latestExit = Calendar.current.date(
+            byAdding: .day,
+            value: 89,
+            to: proposedEntryDate
+        )!
+
+        return StaySimulationResult(
+            entryDate: proposedEntryDate,
+            latestLegalExit: latestExit,
+            simulatedDays: 90,
+            finalStatus: SchengenStatus(
+                referenceDate: latestExit,
+                occupiedDates: [],
+                usedDays: 90,
+                remainingDays: 0,
+                isCompliant: true
+            )
+        )
 
     }
 
