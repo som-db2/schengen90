@@ -5,6 +5,11 @@
 //  Created by Som Kundu on 26/07/26.
 //
 
+//
+//  SchengenCalculator.swift
+//  Schengen90
+//
+
 import Foundation
 
 struct SchengenCalculator {
@@ -12,10 +17,10 @@ struct SchengenCalculator {
     private let tripDateExpander = TripDateExpander()
     private let rollingWindow = RollingWindow()
 
-    func usedDays(
+    func status(
         from trips: [Trip],
         on referenceDate: Date
-    ) -> Int {
+    ) -> SchengenStatus {
 
         let occupiedDates = tripDateExpander.occupiedDates(from: trips)
 
@@ -24,7 +29,14 @@ struct SchengenCalculator {
             referenceDate: referenceDate
         )
 
-        return datesInWindow.count
+        let usedDays = datesInWindow.count
+
+        return SchengenStatus(
+            referenceDate: referenceDate,
+            occupiedDates: datesInWindow,
+            usedDays: usedDays,
+            remainingDays: max(0, 90 - usedDays)
+        )
 
     }
 
