@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AddTripView: View {
 
@@ -13,6 +14,9 @@ struct AddTripView: View {
 
     @Environment(\.dismiss)
     private var dismiss
+    
+    @Environment(\.modelContext)
+    private var modelContext
 
     @State
     private var entryDate = Date()
@@ -23,6 +27,12 @@ struct AddTripView: View {
     @State
     private var notes = ""
 
+    private var isValidTrip: Bool {
+
+        exitDate >= entryDate
+
+    }
+    
     // MARK: - Body
 
     var body: some View {
@@ -87,10 +97,18 @@ struct AddTripView: View {
 
                     Button("Save") {
 
-                        // Step 3:
-                        // Save to SwiftData
+                        let trip = Trip(
+                            entryDate: entryDate,
+                            exitDate: exitDate,
+                            notes: notes.trimmingCharacters(in: .whitespacesAndNewlines)
+                        )
+
+                        modelContext.insert(trip)
+
+                        dismiss()
 
                     }
+                    .disabled(!isValidTrip)
                     .fontWeight(.semibold)
 
                 }
