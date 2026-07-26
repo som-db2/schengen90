@@ -27,9 +27,12 @@ struct AddTripView: View {
     @State
     private var notes = ""
 
-    private var isValidTrip: Bool {
+    private var validationErrors: [String] {
 
-        exitDate >= entryDate
+        TripValidator.validate(
+            entryDate: entryDate,
+            exitDate: exitDate
+        )
 
     }
     
@@ -54,6 +57,26 @@ struct AddTripView: View {
                         selection: $exitDate,
                         displayedComponents: .date
                     )
+                    
+                    if !validationErrors.isEmpty {
+
+                        ForEach(validationErrors, id: \.self) { error in
+
+                            HStack(alignment: .top, spacing: 6) {
+
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .foregroundStyle(.red)
+                                    .font(.caption)
+
+                                Text(error)
+                                    .font(.caption)
+                                    .foregroundStyle(.red)
+
+                            }
+
+                        }
+
+                    }
                     
                 }
                 
@@ -108,7 +131,7 @@ struct AddTripView: View {
                         dismiss()
 
                     }
-                    .disabled(!isValidTrip)
+                    .disabled(!validationErrors.isEmpty)
                     .fontWeight(.semibold)
 
                 }
