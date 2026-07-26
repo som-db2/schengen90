@@ -14,6 +14,9 @@ struct EditTripView: View {
 
     @Environment(\.dismiss)
     private var dismiss
+    
+    @Environment(\.modelContext)
+    private var modelContext
 
     @State
     private var entryDate: Date
@@ -159,8 +162,10 @@ struct EditTripView: View {
                     ) {
 
                         Button("Delete Trip", role: .destructive) {
-
-                            // Next milestone
+                            
+                            modelContext.delete(trip)
+                            
+                            dismiss()
 
                         }
 
