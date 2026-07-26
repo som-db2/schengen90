@@ -8,13 +8,14 @@
 import Foundation
 
 struct StaySimulator {
+    
+    private let rollingWindow = RollingWindow()
+    private let calendar = Calendar.current
 
     func simulate(
         occupiedDates: Set<Date>,
         proposedEntryDate: Date
     ) -> StaySimulationResult {
-
-        let calendar = Calendar.current
         
         let latestExit = calendar.date(
             byAdding: .day,
@@ -34,6 +35,32 @@ struct StaySimulator {
                 isCompliant: true
             )
         )
+
+    }
+    
+    private func simulatedOccupiedDates(
+        historical: Set<Date>,
+        entryDate: Date,
+        exitDate: Date
+    ) -> Set<Date> {
+
+        var dates = historical
+
+        var current = entryDate
+
+        while current <= exitDate {
+
+            dates.insert(current)
+
+            current = calendar.date(
+                byAdding: .day,
+                value: 1,
+                to: current
+            )!
+
+        }
+
+        return dates
 
     }
 
