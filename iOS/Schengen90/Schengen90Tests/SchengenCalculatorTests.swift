@@ -31,6 +31,7 @@ struct SchengenCalculatorTests {
         #expect(status.usedDays == 6)
         #expect(status.remainingDays == 84)
         #expect(status.occupiedDates.count == 6)
+        #expect(status.isCompliant)
 
     }
 
