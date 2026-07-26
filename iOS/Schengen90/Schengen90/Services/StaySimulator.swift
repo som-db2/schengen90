@@ -14,7 +14,9 @@ struct StaySimulator {
         proposedEntryDate: Date
     ) -> StaySimulationResult {
 
-        let latestExit = Calendar.current.date(
+        let calendar = Calendar.current
+        
+        let latestExit = calendar.date(
             byAdding: .day,
             value: 89,
             to: proposedEntryDate
