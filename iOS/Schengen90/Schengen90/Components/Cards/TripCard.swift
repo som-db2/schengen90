@@ -14,9 +14,9 @@ import SwiftUI
 
 struct TripCard: View {
 
-    let entryDate: String
-    let exitDate: String
-    let duration: String
+    let entryDate: Date
+    let exitDate: Date
+    let stayDays: Int
     let status: String
     let statusColor: Color
 
@@ -42,12 +42,14 @@ struct TripCard: View {
 
                 // MARK: - Dates
 
-                Text("\(entryDate) → \(exitDate)")
+                Text(
+                    "\(DateFormatter.tripDate.string(from: entryDate)) → \(DateFormatter.tripDate.string(from: exitDate))"
+                )
                     .font(AppTypography.body)
 
                 // MARK: - Duration
 
-                Text(duration)
+                Text("Duration: \(stayDays) day\(stayDays == 1 ? "" : "s")")
                     .font(AppTypography.caption)
                     .foregroundStyle(AppColors.secondaryText)
 
@@ -64,17 +66,41 @@ struct TripCard: View {
     VStack(spacing: 20) {
 
         TripCard(
-            entryDate: "11 Jun 2026",
-            exitDate: "16 Jul 2026",
-            duration: "Duration: 36 days",
+            entryDate: Calendar.current.date(
+                from: DateComponents(
+                    year: 2026,
+                    month: 6,
+                    day: 11
+                )
+            )!,
+            exitDate: Calendar.current.date(
+                from: DateComponents(
+                    year: 2026,
+                    month: 7,
+                    day: 16
+                )
+            )!,
+            stayDays: 36,
             status: "Completed",
             statusColor: AppColors.success
         )
 
         TripCard(
-            entryDate: "02 Sep 2026",
-            exitDate: "15 Sep 2026",
-            duration: "Duration: 14 days",
+            entryDate: Calendar.current.date(
+                from: DateComponents(
+                    year: 2026,
+                    month: 9,
+                    day: 2
+                )
+            )!,
+            exitDate: Calendar.current.date(
+                from: DateComponents(
+                    year: 2026,
+                    month: 9,
+                    day: 15
+                )
+            )!,
+            stayDays: 14,
             status: "Planned",
             statusColor: AppColors.warning
         )
