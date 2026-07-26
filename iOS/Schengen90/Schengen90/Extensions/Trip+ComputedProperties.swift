@@ -39,5 +39,14 @@ extension Trip {
         "\(formattedEntryDate) – \(formattedExitDate)"
 
     }
+    
+    var entryYear: Int {
+
+        Calendar.current.component(
+            .year,
+            from: entryDate
+        )
+
+    }
 
 }
