@@ -24,6 +24,15 @@ struct EditTripView: View {
     @State
     private var notes: String
     
+    private var validationErrors: [String] {
+
+        TripValidator.validate(
+            entryDate: entryDate,
+            exitDate: exitDate
+        )
+
+    }
+    
     init(trip: Trip) {
 
         self.trip = trip
@@ -53,6 +62,30 @@ struct EditTripView: View {
                         selection: $exitDate,
                         displayedComponents: .date
                     )
+                    
+                    if !validationErrors.isEmpty {
+                        
+                        Text("Validation")
+                            .font(AppTypography.caption)
+                            .foregroundStyle(.secondary)
+
+                        ForEach(validationErrors, id: \.self) { error in
+
+                            HStack(alignment: .top, spacing: 6) {
+
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .foregroundStyle(.red)
+                                    .font(.caption)
+
+                                Text(error)
+                                    .font(.caption)
+                                    .foregroundStyle(.red)
+
+                            }
+
+                        }
+
+                    }
 
                 }
 
@@ -82,12 +115,30 @@ struct EditTripView: View {
             .toolbar {
 
                 ToolbarItem(placement: .topBarLeading) {
-
-                    Button("Close") {
+                    
+                    Button("Cancel") {
 
                         dismiss()
 
                     }
+
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+
+                    Button("Save") {
+
+                        trip.entryDate = entryDate
+                        trip.exitDate = exitDate
+                        trip.notes = notes.trimmingCharacters(in: .whitespacesAndNewlines)
+
+                        trip.updatedAt = Date()
+
+                        dismiss()
+
+                    }
+                    .disabled(!validationErrors.isEmpty)
+                    .fontWeight(.semibold)
 
                 }
 
