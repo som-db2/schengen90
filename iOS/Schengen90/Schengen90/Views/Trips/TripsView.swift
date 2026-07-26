@@ -75,93 +75,20 @@ struct TripsView: View {
                 }
 
                 if !trips.isEmpty {
+                    
+                    ForEach(trips) { trip in
 
-                    // MARK: - 2026
+                        TripCard(
+                            entryDate: trip.entryDate,
+                            exitDate: trip.exitDate,
+                            stayDays: trip.stayDays,
+                            status: trip.isPlanned ? "Planned" : "Completed",
+                            statusColor: trip.isPlanned
+                                ? AppColors.warning
+                                : AppColors.success
+                        )
 
-                    Text("2026")
-                        .font(AppTypography.heading)
-
-                    TripCard(
-                        entryDate: previewDate(2026, 6, 11),
-                        exitDate: previewDate(2026, 7, 16),
-                        stayDays: 36,
-                        status: "Completed",
-                        statusColor: AppColors.success
-                    )
-
-                    TripCard(
-                        entryDate: previewDate(2026, 5, 5),
-                        exitDate: previewDate(2026, 5, 16),
-                        stayDays: 12,
-                        status: "Completed",
-                        statusColor: AppColors.success
-                    )
-
-                    TripCard(
-                        entryDate: previewDate(2026, 2, 10),
-                        exitDate: previewDate(2026, 3, 17),
-                        stayDays: 36,
-                        status: "Completed",
-                        statusColor: AppColors.success
-                    )
-
-                    // MARK: - 2025
-
-                    Text("2025")
-                        .font(AppTypography.heading)
-
-                    TripCard(
-                        entryDate: previewDate(2025, 12, 26),
-                        exitDate: previewDate(2026, 1, 7),
-                        stayDays: 13,
-                        status: "Completed",
-                        statusColor: AppColors.success
-                    )
-
-                    TripCard(
-                        entryDate: previewDate(2025, 6, 26),
-                        exitDate: previewDate(2025, 7, 24),
-                        stayDays: 29,
-                        status: "Completed",
-                        statusColor: AppColors.success
-                    )
-
-                    TripCard(
-                        entryDate: previewDate(2025, 5, 13),
-                        exitDate: previewDate(2025, 5, 20),
-                        stayDays: 8,
-                        status: "Completed",
-                        statusColor: AppColors.success
-                    )
-
-                    TripCard(
-                        entryDate: previewDate(2025, 2, 4),
-                        exitDate: previewDate(2025, 3, 4),
-                        stayDays: 29,
-                        status: "Completed",
-                        statusColor: AppColors.success
-                    )
-
-                    // MARK: - 2024
-
-                    Text("2024")
-                        .font(AppTypography.heading)
-
-                    TripCard(
-                        entryDate: previewDate(2024, 7, 1),
-                        exitDate: previewDate(2024, 7, 15),
-                        stayDays: 15,
-                        status: "Completed",
-                        statusColor: AppColors.success
-                    )
-
-                    TripCard(
-                        entryDate: previewDate(2024, 5, 6),
-                        exitDate: previewDate(2024, 5, 27),
-                        stayDays: 22,
-                        status: "Completed",
-                        statusColor: AppColors.success
-                    )
+                    }
 
                 } else {
 
