@@ -14,9 +14,7 @@ struct StaySimulatorTests {
     @Test
     func simulatorCanBeCreated() {
 
-        let simulator = StaySimulator()
-
-        #expect(simulator != nil)
+        _ = StaySimulator()
 
     }
 
