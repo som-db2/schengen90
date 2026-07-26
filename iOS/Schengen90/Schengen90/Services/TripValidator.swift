@@ -64,13 +64,12 @@ struct TripValidator {
         // Rule 4
         //--------------------------------------------------
 
-        let duration = calendar.dateComponents(
-            [.day],
-            from: entry,
-            to: exit
-        ).day ?? 0
+        let stayDays = DateCalculator.stayDays(
+            from: entryDate,
+            to: exitDate
+        )
         
-        if duration > 90 {
+        if stayDays > 90 {
 
             errors.append(
                 "A single Schengen trip cannot exceed 90 days under the Schengen 90/180 rule."
