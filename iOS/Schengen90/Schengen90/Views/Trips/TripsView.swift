@@ -39,6 +39,9 @@ struct TripsView: View {
     @State
     private var showingAddTrip = false
     
+    @State
+    private var selectedTrip: Trip?
+    
     private var groupedTrips: [Int: [Trip]] {
 
         Dictionary(
@@ -92,7 +95,7 @@ struct TripsView: View {
 
                         Button {
 
-                            print("Tapped \(trip.dateRange)")
+                            selectedTrip = trip
 
                         } label: {
 
@@ -128,7 +131,7 @@ struct TripsView: View {
                             Text("No Trips Yet")
                                 .font(AppTypography.heading)
 
-                            Text("Add your Schengen trips from the last 180 days to begin calculating your remaining stay.")
+                            Text("Add your Schengen trips from the last 180 days to calculate your remaining legal stay.")
                                 .font(AppTypography.body)
                                 .foregroundStyle(AppColors.secondaryText)
                                 .multilineTextAlignment(.center)
@@ -164,6 +167,13 @@ struct TripsView: View {
         .sheet(isPresented: $showingAddTrip) {
 
             AddTripView()
+
+        }
+        
+        .sheet(item: $selectedTrip) { trip in
+
+            Text(trip.dateRange)
+                .font(.title)
 
         }
         .background(AppColors.background)
