@@ -70,10 +70,10 @@ struct TripValidator {
             to: exit
         ).day ?? 0
         
-        if duration > 180 {
+        if duration > 90 {
 
             errors.append(
-                "A single Schengen trip cannot exceed 180 days."
+                "A single Schengen trip cannot exceed 90 days under the Schengen 90/180 rule."
             )
 
         }
