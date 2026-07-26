@@ -12,7 +12,7 @@ import Testing
 struct SchengenCalculatorTests {
 
     @Test
-    func usedDaysForSingleTrip() {
+    func statusForSingleTrip() {
 
         let formatter = DateFormatter.tripDate
 
@@ -23,12 +23,14 @@ struct SchengenCalculatorTests {
 
         let calculator = SchengenCalculator()
 
-        let used = calculator.usedDays(
+        let status = calculator.status(
             from: [trip],
             on: formatter.date(from: "26 Jul 2026")!
         )
 
-        #expect(used == 6)
+        #expect(status.usedDays == 6)
+        #expect(status.remainingDays == 84)
+        #expect(status.occupiedDates.count == 6)
 
     }
 
