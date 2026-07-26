@@ -172,8 +172,7 @@ struct TripsView: View {
         
         .sheet(item: $selectedTrip) { trip in
 
-            Text(trip.dateRange)
-                .font(.title)
+            EditTripView(trip: trip)
 
         }
         .background(AppColors.background)
