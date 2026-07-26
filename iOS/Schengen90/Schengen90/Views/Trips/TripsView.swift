@@ -40,6 +40,12 @@ struct TripsView: View {
 
                     Text("Trips")
                         .font(AppTypography.largeTitle)
+                    
+                    Spacer()
+                    
+                    Text("Trips in database: \(trips.count)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
 
                     Spacer()
 
