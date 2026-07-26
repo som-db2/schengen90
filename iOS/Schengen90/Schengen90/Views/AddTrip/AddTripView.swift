@@ -59,6 +59,10 @@ struct AddTripView: View {
                     )
                     
                     if !validationErrors.isEmpty {
+                        
+                        Text("Validation")
+                            .font(AppTypography.caption)
+                            .foregroundStyle(.secondary)
 
                         ForEach(validationErrors, id: \.self) { error in
 
