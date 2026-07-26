@@ -50,7 +50,7 @@ struct DateCalculatorTests {
 
     }
     
-    // MARK: - Next Day
+    // MARK: - Consecutive Days
     
     @Test
     func consecutiveDaysAreCountedCorrectly() {
@@ -67,7 +67,7 @@ struct DateCalculatorTests {
         )
 
     }
-    
+
     // MARK: - 31 Day Month
     
     @Test
@@ -86,7 +86,7 @@ struct DateCalculatorTests {
 
     }
     
-    // MARK: - February with 28 days
+    // MARK: - Leap Year February
     
     @Test
     func leapYearFebruary() {
@@ -104,6 +104,8 @@ struct DateCalculatorTests {
 
     }
     
+    // MARK: - 90 Days Stay
+    
     @Test
     func ninetyDayStay() {
 
@@ -119,5 +121,43 @@ struct DateCalculatorTests {
         )
 
     }
+    
+    // MARK: - 91 Days Stay
+    
+    @Test
+    func ninetyOneDayStay() {
+
+        let entry = makeDate(2027, 3, 1)
+
+        let exit = makeDate(2027, 5, 30)
+
+        #expect(
+            DateCalculator.stayDays(
+                from: entry,
+                to: exit
+            ) == 91
+        )
+
+    }
+    
+    // MARK: - 92 Days Stay
+    
+    @Test
+    func ninetyTwoDayStay() {
+
+        let entry = makeDate(2027, 3, 1)
+
+        let exit = makeDate(2027, 5, 31)
+
+        #expect(
+            DateCalculator.stayDays(
+                from: entry,
+                to: exit
+            ) == 92
+        )
+
+    }
+    
+    
 
 }
