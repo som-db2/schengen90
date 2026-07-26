@@ -40,5 +40,23 @@ struct SchengenCalculator {
         )
 
     }
+    
+    func latestLegalExit(
+        existingTrips: [Trip],
+        proposedEntryDate: Date
+    ) -> Date? {
+
+        let initialStatus = status(
+            from: existingTrips,
+            on: proposedEntryDate
+        )
+
+        guard initialStatus.isCompliant else {
+            return nil
+        }
+
+        return proposedEntryDate
+
+    }
 
 }
