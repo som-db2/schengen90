@@ -15,6 +15,25 @@ struct EditTripView: View {
     @Environment(\.dismiss)
     private var dismiss
 
+    @State
+    private var entryDate: Date
+
+    @State
+    private var exitDate: Date
+
+    @State
+    private var notes: String
+    
+    init(trip: Trip) {
+
+        self.trip = trip
+
+        _entryDate = State(initialValue: trip.entryDate)
+        _exitDate = State(initialValue: trip.exitDate)
+        _notes = State(initialValue: trip.notes)
+
+    }
+    
     var body: some View {
 
         NavigationStack {
@@ -25,13 +44,13 @@ struct EditTripView: View {
 
                     DatePicker(
                         "Entry Date",
-                        selection: $trip.entryDate,
+                        selection: $entryDate,
                         displayedComponents: .date
                     )
 
                     DatePicker(
                         "Exit Date",
-                        selection: $trip.exitDate,
+                        selection: $exitDate,
                         displayedComponents: .date
                     )
 
@@ -41,7 +60,7 @@ struct EditTripView: View {
 
                     ZStack(alignment: .topLeading) {
 
-                        if trip.notes.isEmpty {
+                        if notes.isEmpty {
 
                             Text("Vacation, Business, Family Visit...")
                                 .foregroundStyle(.secondary)
@@ -50,7 +69,7 @@ struct EditTripView: View {
 
                         }
 
-                        TextEditor(text: $trip.notes)
+                        TextEditor(text: $notes)
                             .frame(minHeight: 90)
 
                     }
