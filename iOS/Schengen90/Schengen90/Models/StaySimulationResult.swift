@@ -15,6 +15,6 @@ struct StaySimulationResult {
 
     let simulatedDays: Int
 
-    let isEntryAllowed: Bool
+    let finalStatus: SchengenStatus
 
 }
