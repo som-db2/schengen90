@@ -24,6 +24,9 @@ struct EditTripView: View {
     @State
     private var notes: String
     
+    @State
+    private var showingDeleteConfirmation = false
+    
     private var validationErrors: [String] {
 
         TripValidator.validate(
@@ -139,6 +142,35 @@ struct EditTripView: View {
                     }
                     .disabled(!validationErrors.isEmpty)
                     .fontWeight(.semibold)
+
+                }
+                
+                ToolbarItem(placement: .bottomBar) {
+
+                    Button("Delete Trip", role: .destructive) {
+
+                        showingDeleteConfirmation = true
+
+                    }
+                    .confirmationDialog(
+                        "Delete this trip?",
+                        isPresented: $showingDeleteConfirmation,
+                        titleVisibility: .visible
+                    ) {
+
+                        Button("Delete Trip", role: .destructive) {
+
+                            // Next milestone
+
+                        }
+
+                        Button("Cancel", role: .cancel) { }
+
+                    } message: {
+
+                        Text("This action cannot be undone.")
+
+                    }
 
                 }
 
