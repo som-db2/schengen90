@@ -9,4 +9,13 @@ import Foundation
 
 struct StaySimulator {
 
+    func simulate(
+        occupiedDates: Set<Date>,
+        proposedEntryDate: Date
+    ) -> StaySimulationResult {
+
+        fatalError("Not implemented")
+
+    }
+
 }
