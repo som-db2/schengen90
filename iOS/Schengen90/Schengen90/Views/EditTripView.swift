@@ -21,9 +21,39 @@ struct EditTripView: View {
 
             Form {
 
-                Section("Trip") {
+                Section("Trip Dates") {
 
-                    Text(trip.dateRange)
+                    DatePicker(
+                        "Entry Date",
+                        selection: $trip.entryDate,
+                        displayedComponents: .date
+                    )
+
+                    DatePicker(
+                        "Exit Date",
+                        selection: $trip.exitDate,
+                        displayedComponents: .date
+                    )
+
+                }
+
+                Section("Notes") {
+
+                    ZStack(alignment: .topLeading) {
+
+                        if trip.notes.isEmpty {
+
+                            Text("Vacation, Business, Family Visit...")
+                                .foregroundStyle(.secondary)
+                                .padding(.top, 8)
+                                .padding(.leading, 5)
+
+                        }
+
+                        TextEditor(text: $trip.notes)
+                            .frame(minHeight: 90)
+
+                    }
 
                 }
 
