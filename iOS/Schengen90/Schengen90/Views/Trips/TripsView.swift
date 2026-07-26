@@ -124,6 +124,12 @@ struct TripsView: View {
                                 .foregroundStyle(AppColors.secondaryText)
                                 .multilineTextAlignment(.center)
                                 .frame(maxWidth: 280)
+                            
+                            Text("Trips older than 180 days do not contribute towards stay calculations.")
+                                .font(AppTypography.body)
+                                .foregroundStyle(AppColors.secondaryText)
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: 280)
 
                             PrimaryButton(
                                 title: "Add Trip"
