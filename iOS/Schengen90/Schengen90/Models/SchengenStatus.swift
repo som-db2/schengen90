@@ -17,4 +17,6 @@ struct SchengenStatus {
 
     let remainingDays: Int
 
+    let isCompliant: Bool
+
 }
