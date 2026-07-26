@@ -90,15 +90,24 @@ struct TripsView: View {
                     
                     ForEach(trips) { trip in
 
-                        TripCard(
-                            entryDate: trip.entryDate,
-                            exitDate: trip.exitDate,
-                            stayDays: trip.stayDays,
-                            status: trip.isPlanned ? "Planned" : "Completed",
-                            statusColor: trip.isPlanned
-                                ? AppColors.warning
-                                : AppColors.success
-                        )
+                        Button {
+
+                            print("Tapped \(trip.dateRange)")
+
+                        } label: {
+
+                            TripCard(
+                                entryDate: trip.entryDate,
+                                exitDate: trip.exitDate,
+                                stayDays: trip.stayDays,
+                                status: trip.isPlanned ? "Planned" : "Completed",
+                                statusColor: trip.isPlanned
+                                    ? AppColors.warning
+                                    : AppColors.success
+                            )
+
+                        }
+                        .buttonStyle(.plain)
 
                     }
 
