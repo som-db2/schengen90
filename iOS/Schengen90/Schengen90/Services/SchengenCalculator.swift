@@ -35,7 +35,8 @@ struct SchengenCalculator {
             referenceDate: referenceDate,
             occupiedDates: datesInWindow,
             usedDays: usedDays,
-            remainingDays: max(0, 90 - usedDays)
+            remainingDays: max(0, 90 - usedDays),
+            isCompliant: usedDays <= 90
         )
 
     }
