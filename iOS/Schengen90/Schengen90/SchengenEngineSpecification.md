@@ -73,6 +73,23 @@ Same-day exit and re-entry is permitted because duplicate calendar days are coun
 
 ---
 
+# Exit Date Simulation
+
+The latest legal exit date is determined by simulation.
+
+Algorithm:
+
+1. Start with the proposed entry date.
+2. Assume the traveller remains in Schengen until the candidate exit date.
+3. Recalculate the Schengen status.
+4. If the traveller remains within the 90-day limit, advance the candidate exit date by one day.
+5. Repeat until the traveller would exceed 90 days.
+6. The previous candidate exit date is the latest legal exit.
+
+This algorithm intentionally simulates each calendar day rather than relying on arithmetic shortcuts because occupied days may fall outside the rolling 180-day window during the stay.
+
+---
+
 ## Future Rules
 
 (To be added as the project evolves.)
