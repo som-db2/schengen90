@@ -34,5 +34,23 @@ struct SchengenCalculatorTests {
         #expect(status.isCompliant)
 
     }
+    
+    @Test
+    func latestLegalExitForEmptyHistoryIsEntryDate() {
+
+        let formatter = DateFormatter.tripDate
+
+        let calculator = SchengenCalculator()
+
+        let entry = formatter.date(from: "01 Jan 2026")!
+
+        let exit = calculator.latestLegalExit(
+            existingTrips: [],
+            proposedEntryDate: entry
+        )
+
+        #expect(exit == entry)
+
+    }
 
 }
