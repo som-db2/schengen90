@@ -38,7 +38,19 @@ struct TripsView: View {
 
     @State
     private var showingAddTrip = false
+    
+    private var groupedTrips: [Int: [Trip]] {
 
+        Dictionary(
+            grouping: trips
+        ) { trip in
+
+            trip.entryYear
+
+        }
+
+    }
+    
     // MARK: - Body
 
     var body: some View {
