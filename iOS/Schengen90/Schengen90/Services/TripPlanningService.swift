@@ -10,6 +10,7 @@ import SwiftData
 
 struct TripPlanningService {
 
+    @discardableResult
     func createPlannedTrip(
         entryDate: Date,
         latestLegalExit: Date,
@@ -24,7 +25,17 @@ struct TripPlanningService {
 
         context.insert(trip)
 
-        try? context.save()
+        do {
+
+            try context.save()
+
+        } catch {
+
+            assertionFailure(
+                "Failed to save planned trip: \(error)"
+            )
+
+        }
 
         return trip
 
