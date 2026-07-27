@@ -33,6 +33,9 @@ struct TripsView: View {
         order: .reverse
     )
     private var trips: [Trip]
+    
+    @Environment(AppState.self)
+    private var appState
 
     // MARK: - State
 
@@ -166,6 +169,20 @@ struct TripsView: View {
         .sheet(item: $selectedTrip) { trip in
 
             EditTripView(trip: trip)
+
+        }
+        
+        .onChange(of: appState.selectedTrip) { _, trip in
+
+            guard let trip else {
+
+                return
+
+            }
+
+            selectedTrip = trip
+
+            appState.selectedTrip = nil
 
         }
         .background(AppColors.background)
