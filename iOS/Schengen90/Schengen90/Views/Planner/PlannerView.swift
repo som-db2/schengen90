@@ -22,8 +22,11 @@ struct PlannerView: View {
     @State
     private var showEntryPicker = false
 
-    // Demo data until Trips are connected
-    private let existingTrips: [Trip] = []
+    @Query(
+        sort: \Trip.entryDate,
+        order: .forward
+    )
+    private var existingTrips: [Trip]
 
     var body: some View {
 
@@ -150,6 +153,14 @@ struct PlannerView: View {
                             let result = viewModel.result,
                             let latestLegalExit = result.latestLegalExit
                         else {
+
+                            return
+
+                        }
+
+                        let plannedTripCount = existingTrips.filter(\.isPlanned).count
+
+                        guard plannedTripCount < 2 else {
 
                             return
 
