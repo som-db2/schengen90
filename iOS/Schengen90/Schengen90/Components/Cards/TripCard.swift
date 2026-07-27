@@ -16,37 +16,9 @@ struct TripCard: View {
 
     let trip: Trip
     
-    private var badgeTitle: String {
+    private var status: DisplayTripStatus {
 
-        switch TripStatusService.status(for: trip) {
-
-        case .planned:
-            return "Planned"
-
-        case .ongoing:
-            return "Ongoing"
-
-        case .completed:
-            return "Completed"
-
-        }
-
-    }
-
-    private var badgeColor: Color {
-
-        switch TripStatusService.status(for: trip) {
-
-        case .planned:
-            return AppColors.warning
-
-        case .ongoing:
-            return AppColors.success
-
-        case .completed:
-            return AppColors.secondaryText
-
-        }
+        TripStatusService.status(for: trip)
 
     }
     
@@ -64,8 +36,8 @@ struct TripCard: View {
                 HStack(alignment: .top) {
 
                     StatusBadge(
-                        title: badgeTitle,
-                        color: badgeColor
+                        title: status.title,
+                        color: status.color
                     )
                     
                 }
