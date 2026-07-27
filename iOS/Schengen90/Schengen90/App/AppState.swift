@@ -1,22 +1,15 @@
 //
-//  NavigationCoordinator.swift
+//  AppState.swift
 //  Schengen90
 //
 //  Created by Som Kundu on 27/07/26.
-//
-
-//
-//  NavigationCoordinator.swift
-//  Schengen90
 //
 
 import Foundation
 import Observation
 
 @Observable
-final class NavigationCoordinator {
-
-    // MARK: - Tabs
+final class AppState {
 
     enum Tab: Hashable {
 
@@ -27,11 +20,11 @@ final class NavigationCoordinator {
 
     }
 
-    // MARK: - Navigation State
+    // MARK: - Current Tab
 
     var selectedTab: Tab = .dashboard
 
-    // MARK: - Planner → Trips
+    // MARK: - Selected Trip
 
     var selectedTrip: Trip?
 
