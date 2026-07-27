@@ -109,5 +109,44 @@ struct StaySimulatorTests {
         #expect(result.simulatedDays == 2)
 
     }
+    
+    // Rolling Window Fall-off Extends Stay Beyond Initial Allowance
+    
+    @Test
+    func rollingWindowFalloffExtendsStayBeyondInitialAllowance() {
+
+        let formatter = DateFormatter.tripDate
+
+        let expander = TripDateExpander()
+
+        let simulator = StaySimulator()
+
+        let history = [
+
+            Trip(
+                entryDate: formatter.date(from: "01 Jan 2026")!,
+                exitDate: formatter.date(from: "30 Jan 2026")!
+            )
+
+        ]
+
+        let occupiedDates = expander.occupiedDates(from: history)
+
+        let result = simulator.simulate(
+            occupiedDates: occupiedDates,
+            proposedEntryDate: formatter.date(from: "01 Jun 2026")!
+        )
+
+        // Initial allowance would be only 60 days.
+        // A correct rolling-window simulation must allow MORE than that.
+
+        #expect(
+            result.latestLegalExit ==
+            formatter.date(from: "29 Aug 2026")!
+        )
+
+        #expect(result.simulatedDays == 90)
+
+    }
 
 }
