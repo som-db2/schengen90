@@ -17,23 +17,72 @@ struct StaySimulator {
         proposedEntryDate: Date
     ) -> StaySimulationResult {
         
-        let latestExit = calendar.date(
-            byAdding: .day,
-            value: 89,
-            to: proposedEntryDate
-        )!
+        var simulatedDates = occupiedDates
+
+        var candidateExit = proposedEntryDate
+
+        var latestLegalExit: Date? = nil
+        
+        while true {
+            
+            simulatedDates.insert(candidateExit)
+            
+            let datesInWindow = rollingWindow.dates(
+                from: simulatedDates,
+                referenceDate: candidateExit
+            )
+            
+            if datesInWindow.count > 90 {
+                break
+            }
+            
+            latestLegalExit = candidateExit
+            
+            candidateExit = calendar.date(
+                byAdding: .day,
+                value: 1,
+                to: candidateExit
+            )!
+
+        }
+        
+        let simulatedDays: Int
+
+        if let latestLegalExit {
+
+            simulatedDays =
+                calendar.dateComponents(
+                    [.day],
+                    from: proposedEntryDate,
+                    to: latestLegalExit
+                ).day! + 1
+
+        } else {
+
+            simulatedDays = 0
+
+        }
+
+        let finalReferenceDate = latestLegalExit ?? proposedEntryDate
+
+        let finalDates = rollingWindow.dates(
+            from: simulatedDates,
+            referenceDate: finalReferenceDate
+        )
+
+        let finalStatus = SchengenStatus(
+            referenceDate: finalReferenceDate,
+            occupiedDates: finalDates,
+            usedDays: finalDates.count,
+            remainingDays: max(0, 90 - finalDates.count),
+            isCompliant: finalDates.count <= 90
+        )
 
         return StaySimulationResult(
             entryDate: proposedEntryDate,
-            latestLegalExit: latestExit,
-            simulatedDays: 90,
-            finalStatus: SchengenStatus(
-                referenceDate: latestExit,
-                occupiedDates: [],
-                usedDays: 90,
-                remainingDays: 0,
-                isCompliant: true
-            )
+            latestLegalExit: latestLegalExit,
+            simulatedDays: simulatedDays,
+            finalStatus: finalStatus
         )
 
     }
