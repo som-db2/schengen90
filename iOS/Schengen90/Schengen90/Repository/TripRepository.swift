@@ -56,6 +56,26 @@ final class TripRepository {
         save()
 
     }
+    
+    // MARK: - Planned Trip
+
+    @discardableResult
+    func addPlannedTrip(
+        entryDate: Date,
+        latestLegalExit: Date
+    ) -> Trip {
+
+        let trip = Trip(
+            entryDate: entryDate,
+            exitDate: latestLegalExit,
+            isPlanned: true
+        )
+
+        add(trip)
+
+        return trip
+
+    }
 
     // MARK: - Delete
 
