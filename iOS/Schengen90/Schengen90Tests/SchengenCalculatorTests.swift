@@ -36,7 +36,7 @@ struct SchengenCalculatorTests {
     }
     
     @Test
-    func latestLegalExitForEmptyHistoryIsEntryDate() {
+    func latestLegalExitForEmptyHistoryIsNinetiethDay() {
 
         let formatter = DateFormatter.tripDate
 
@@ -49,8 +49,10 @@ struct SchengenCalculatorTests {
             proposedEntryDate: entry
         )
 
-        #expect(exit == entry)
+        #expect(
+            exit ==
+            formatter.date(from: "31 Mar 2026")!
+        )
 
     }
-
 }
