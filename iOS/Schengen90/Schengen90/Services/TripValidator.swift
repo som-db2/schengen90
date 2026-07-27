@@ -82,13 +82,38 @@ struct TripValidator {
     }
     
     static func validate(
-            trips: [Trip]
-        ) -> [String] {
+        trips: [Trip]
+    ) -> [String] {
 
-            // We'll implement this next
+        var errors: [String] = []
 
-            []
+        let sortedTrips = trips.sorted {
+            $0.entryDate < $1.entryDate
+        }
+
+        guard sortedTrips.count > 1 else {
+            return errors
+        }
+
+        for index in 1..<sortedTrips.count {
+
+            let previousTrip = sortedTrips[index - 1]
+            let currentTrip = sortedTrips[index]
+
+            if currentTrip.entryDate < previousTrip.exitDate {
+
+                errors.append(
+                    "Trips cannot overlap."
+                )
+
+                break
+
+            }
 
         }
+
+        return errors
+
+    }
 
 }
