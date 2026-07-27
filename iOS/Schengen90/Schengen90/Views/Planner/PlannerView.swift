@@ -40,6 +40,18 @@ struct PlannerView: View {
 
                     }
 
+                    if showEntryPicker {
+
+                        DatePicker(
+                            "",
+                            selection: $viewModel.plannedEntry,
+                            displayedComponents: .date
+                        )
+                        .datePickerStyle(.graphical)
+                        .labelsHidden()
+
+                    }
+
                     DateField(
                         title: "Planned Exit",
                         date:
@@ -131,10 +143,19 @@ struct PlannerView: View {
                             existingTrips: existingTrips
                         )
 
+                        showEntryPicker = false
+                        
                     }
 
                 }
                 .padding(AppSpacing.screen)
+
+            }
+            .onChange(of: viewModel.plannedEntry) {
+
+                viewModel.calculate(
+                    existingTrips: existingTrips
+                )
 
             }
             .navigationTitle("Planner")
