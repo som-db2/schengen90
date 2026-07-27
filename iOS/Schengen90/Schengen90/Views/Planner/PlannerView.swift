@@ -6,12 +6,21 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct PlannerView: View {
 
-    @State private var viewModel = PlannerViewModel()
-    
-    @State private var showEntryPicker = false
+    @Environment(TripRepository.self)
+    private var repository
+
+    @Environment(AppState.self)
+    private var appState
+
+    @State
+    private var viewModel = PlannerViewModel()
+
+    @State
+    private var showEntryPicker = false
 
     // Demo data until Trips are connected
     private let existingTrips: [Trip] = []
@@ -63,8 +72,6 @@ struct PlannerView: View {
                             }
                             ?? "-"
                     ) {
-
-                        // Date Picker later
 
                     }
 
@@ -133,15 +140,28 @@ struct PlannerView: View {
 
                     }
 
-                    // MARK: - Calculate
+                    // MARK: - Plan Trip
 
                     PrimaryButton(
-                        title: "Calculate"
+                        title: "Plan This Trip"
                     ) {
 
-                        viewModel.calculate(
-                            existingTrips: existingTrips
+                        guard
+                            let result = viewModel.result,
+                            let latestLegalExit = result.latestLegalExit
+                        else {
+
+                            return
+
+                        }
+
+                        let trip = repository.addPlannedTrip(
+                            entryDate: viewModel.plannedEntry,
+                            latestLegalExit: latestLegalExit
                         )
+                        
+                        appState.selectedTrip = trip
+                        appState.selectedTab = .trips
 
                         showEntryPicker = false
 
@@ -149,6 +169,13 @@ struct PlannerView: View {
 
                 }
                 .padding(AppSpacing.screen)
+
+            }
+            .onAppear {
+
+                viewModel.calculate(
+                    existingTrips: existingTrips
+                )
 
             }
             .onChange(of: viewModel.plannedEntry) {
@@ -170,5 +197,16 @@ struct PlannerView: View {
 #Preview {
 
     PlannerView()
+        .environment(AppState())
+        .environment(
+            TripRepository(
+                modelContext: try! ModelContainer(
+                    for: Trip.self,
+                    configurations: ModelConfiguration(
+                        isStoredInMemoryOnly: true
+                    )
+                ).mainContext
+            )
+        )
 
 }
