@@ -144,7 +144,7 @@ struct PlannerView: View {
                         )
 
                         showEntryPicker = false
-                        
+
                     }
 
                 }
