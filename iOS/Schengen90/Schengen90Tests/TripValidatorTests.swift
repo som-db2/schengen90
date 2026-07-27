@@ -78,5 +78,63 @@ struct TripValidatorTests {
         #expect(errors.isEmpty)
 
     }
+    
+    // Duplicate Trips are Rejected
+    
+    @Test
+    func duplicateTripsAreRejected() {
+
+        let formatter = DateFormatter.tripDate
+
+        let trips = [
+
+            Trip(
+                entryDate: formatter.date(from: "01 Jan 2026")!,
+                exitDate: formatter.date(from: "10 Jan 2026")!
+            ),
+
+            Trip(
+                entryDate: formatter.date(from: "01 Jan 2026")!,
+                exitDate: formatter.date(from: "10 Jan 2026")!
+            )
+
+        ]
+
+        let errors = TripValidator.validate(
+            trips: trips
+        )
+
+        #expect(errors.isEmpty == false)
+
+    }
+    
+    // Non Overlapping i.e. Valid Trips are Accepted
+    
+    @Test
+    func nonOverlappingTripsAreAccepted() {
+
+        let formatter = DateFormatter.tripDate
+
+        let trips = [
+
+            Trip(
+                entryDate: formatter.date(from: "01 Jan 2026")!,
+                exitDate: formatter.date(from: "10 Jan 2026")!
+            ),
+
+            Trip(
+                entryDate: formatter.date(from: "15 Jan 2026")!,
+                exitDate: formatter.date(from: "20 Jan 2026")!
+            )
+
+        ]
+
+        let errors = TripValidator.validate(
+            trips: trips
+        )
+
+        #expect(errors.isEmpty)
+
+    }
 
 }
