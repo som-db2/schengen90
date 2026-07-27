@@ -46,16 +46,18 @@ struct SchengenCalculator {
         proposedEntryDate: Date
     ) -> Date? {
 
-        let initialStatus = status(
-            from: existingTrips,
-            on: proposedEntryDate
+        let occupiedDates = tripDateExpander.occupiedDates(
+            from: existingTrips
         )
 
-        guard initialStatus.isCompliant else {
-            return nil
-        }
+        let simulator = StaySimulator()
 
-        return proposedEntryDate
+        let result = simulator.simulate(
+            occupiedDates: occupiedDates,
+            proposedEntryDate: proposedEntryDate
+        )
+
+        return result.latestLegalExit
 
     }
 
