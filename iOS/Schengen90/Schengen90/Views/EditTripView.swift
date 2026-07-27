@@ -161,7 +161,6 @@ struct EditTripView: View {
                         trip.notes = notes.trimmingCharacters(in: .whitespacesAndNewlines)
 
                         trip.updatedAt = Date()
-                        trip.isPlanned = false
 
                         dismiss()
 
