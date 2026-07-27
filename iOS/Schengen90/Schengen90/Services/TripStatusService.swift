@@ -22,12 +22,6 @@ struct TripStatusService {
         today: Date = Date()
     ) -> DisplayTripStatus {
 
-        if trip.isPlanned {
-
-            return .planned
-
-        }
-
         let calendar = Calendar.current
 
         let currentDay = calendar.startOfDay(for: today)
@@ -36,12 +30,29 @@ struct TripStatusService {
 
         let exit = calendar.startOfDay(for: trip.exitDate)
 
-        if currentDay >= entry &&
-            currentDay <= exit {
+        //--------------------------------------------------
+        // Planned
+        //--------------------------------------------------
+
+        if trip.isPlanned || currentDay < entry {
+
+            return .planned
+
+        }
+
+        //--------------------------------------------------
+        // Ongoing
+        //--------------------------------------------------
+
+        if currentDay <= exit {
 
             return .ongoing
 
         }
+
+        //--------------------------------------------------
+        // Completed
+        //--------------------------------------------------
 
         return .completed
 
