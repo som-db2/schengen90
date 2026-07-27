@@ -9,14 +9,12 @@ import SwiftUI
 
 struct PlannerView: View {
 
-    // MARK: - Demo Data
+    @State private var viewModel = PlannerViewModel()
+    
+    @State private var showEntryPicker = false
 
-    @State private var plannedEntry = "10 Sep 2026"
-    @State private var plannedExit = "22 Sep 2026"
-
-    private let tripDuration = "13 Days"
-    private let remainingDays = "65 Days"
-    private let latestLegalExit = "22 Sep 2026"
+    // Demo data until Trips are connected
+    private let existingTrips: [Trip] = []
 
     var body: some View {
 
@@ -33,19 +31,28 @@ struct PlannerView: View {
 
                     DateField(
                         title: "Planned Entry",
-                        date: plannedEntry
+                        date: DateFormatter.displayDate.string(
+                            from: viewModel.plannedEntry
+                        )
                     ) {
 
-                        // Open Entry DatePicker (Later)
+                        showEntryPicker = true
 
                     }
 
                     DateField(
                         title: "Planned Exit",
-                        date: plannedExit
+                        date:
+                            viewModel.result?.latestLegalExit
+                            .map {
+                                DateFormatter.displayDate.string(
+                                    from: $0
+                                )
+                            }
+                            ?? "-"
                     ) {
 
-                        // Open Exit DatePicker (Later)
+                        // Date Picker later
 
                     }
 
@@ -61,17 +68,34 @@ struct PlannerView: View {
 
                         InfoCard(
                             title: "Trip Duration",
-                            value: tripDuration
+                            value:
+                                viewModel.result
+                                .map {
+                                    "\($0.simulatedDays) Days"
+                                }
+                                ?? "-"
                         )
 
                         InfoCard(
                             title: "Remaining After Trip",
-                            value: remainingDays
+                            value:
+                                viewModel.result
+                                .map {
+                                    "\($0.finalStatus.remainingDays) Days"
+                                }
+                                ?? "-"
                         )
 
                         InfoCard(
                             title: "Latest Legal Exit",
-                            value: latestLegalExit
+                            value:
+                                viewModel.result?.latestLegalExit
+                                .map {
+                                    DateFormatter.displayDate.string(
+                                        from: $0
+                                    )
+                                }
+                                ?? "-"
                         )
 
                     }
@@ -83,21 +107,29 @@ struct PlannerView: View {
                         Spacer()
 
                         StatusBadge(
-                            title: "Safe",
-                            color: AppColors.success
+                            title:
+                                viewModel.result?.finalStatus.isCompliant == true
+                                ? "Safe"
+                                : "Not Safe",
+                            color:
+                                viewModel.result?.finalStatus.isCompliant == true
+                                ? AppColors.success
+                                : AppColors.error
                         )
 
                         Spacer()
 
                     }
 
-                    // MARK: - Calculate Button
+                    // MARK: - Calculate
 
                     PrimaryButton(
                         title: "Calculate"
                     ) {
 
-                        // Calculation Engine Later
+                        viewModel.calculate(
+                            existingTrips: existingTrips
+                        )
 
                     }
 
