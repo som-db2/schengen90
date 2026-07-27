@@ -6,15 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
 
     // MARK: - Temporary Demo Data
     // These will later come from HomeViewModel
 
-    private let remainingDays = 65
-    private let latestLegalExit = "22 September 2026"
-    private let tripStatus = "Allowed"
+    @Query
+    private var trips: [Trip]
+
+    @State
+    private var viewModel = HomeViewModel()
 
     var body: some View {
 
@@ -52,7 +55,7 @@ struct HomeView: View {
                     Text("Remaining Days")
                         .font(AppTypography.heading)
 
-                    Text("\(remainingDays)")
+                    Text("\(viewModel.remainingDays)")
                         .font(AppTypography.hero)
                         .frame(maxWidth: .infinity)
 
@@ -69,7 +72,7 @@ struct HomeView: View {
                     Text("Latest Legal Exit")
                         .font(AppTypography.heading)
 
-                    Text(latestLegalExit)
+                    Text(viewModel.latestLegalExit)
                         .font(AppTypography.title)
                         .frame(maxWidth: .infinity)
 
@@ -77,9 +80,55 @@ struct HomeView: View {
                         .frame(height: AppSpacing.small)
 
                     StatusBadge(
-                        title: tripStatus,
+                        title: viewModel.tripStatus,
                         color: AppColors.success
                     )
+
+                }
+                
+                // MARK: - Next Planned Trip
+
+                SectionHeader(title: "Next Planned Trip")
+
+                CardContainer {
+
+                    if let trip = viewModel.nextPlannedTrip {
+
+                        VStack(
+                            alignment: .leading,
+                            spacing: AppSpacing.small
+                        ) {
+
+                            Text(
+                                "\(DateFormatter.tripDate.string(from: trip.entryDate)) → \(DateFormatter.tripDate.string(from: trip.exitDate))"
+                            )
+                            .font(AppTypography.bodyBold)
+
+                            Text(
+                                "\(trip.stayDays) day\(trip.stayDays == 1 ? "" : "s")"
+                            )
+                            .font(AppTypography.caption)
+                            .foregroundStyle(AppColors.secondaryText)
+
+                        }
+
+                    } else {
+
+                        VStack(
+                            alignment: .leading,
+                            spacing: AppSpacing.small
+                        ) {
+
+                            Text("No planned trips")
+                                .font(AppTypography.bodyBold)
+
+                            Text("Use Planner to create your next trip.")
+                                .font(AppTypography.caption)
+                                .foregroundStyle(AppColors.secondaryText)
+
+                        }
+
+                    }
 
                 }
 
@@ -93,19 +142,41 @@ struct HomeView: View {
 
                 SectionHeader(title: "Recent Trips")
 
-                CardContainer {
+                if viewModel.recentTrips.isEmpty {
+
+                    CardContainer {
+
+                        VStack(
+                            alignment: .leading,
+                            spacing: AppSpacing.small
+                        ) {
+
+                            Text("No trips yet.")
+                                .font(AppTypography.bodyBold)
+
+                            Text("Tap Trips to add your first Schengen trip.")
+                                .font(AppTypography.caption)
+                                .foregroundStyle(AppColors.secondaryText)
+
+                        }
+
+                    }
+
+                } else {
 
                     VStack(
-                        alignment: .leading,
-                        spacing: AppSpacing.small
+                        spacing: AppSpacing.medium
                     ) {
 
-                        Text("No trips yet.")
-                            .font(AppTypography.bodyBold)
+                        ForEach(
+                            viewModel.recentTrips.prefix(3)
+                        ) { trip in
 
-                        Text("Tap \"Add Trip\" to create your first Schengen trip.")
-                            .font(AppTypography.caption)
-                            .foregroundStyle(AppColors.secondaryText)
+                            TripCard(
+                                trip: trip
+                            )
+
+                        }
 
                     }
 
@@ -118,6 +189,20 @@ struct HomeView: View {
 
         }
         .background(AppColors.background)
+        .onAppear {
+
+            viewModel.refresh(
+                trips: trips
+            )
+
+        }
+        .onChange(of: trips) {
+
+            viewModel.refresh(
+                trips: trips
+            )
+
+        }
 
     }
 
