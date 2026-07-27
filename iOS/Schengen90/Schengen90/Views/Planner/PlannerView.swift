@@ -57,6 +57,7 @@ struct PlannerView: View {
                         DatePicker(
                             "",
                             selection: $viewModel.plannedEntry,
+                            in: Calendar.current.startOfDay(for: Date())...,
                             displayedComponents: .date
                         )
                         .datePickerStyle(.graphical)
