@@ -30,8 +30,8 @@ struct StaySimulatorTests {
         let history = [
 
             Trip(
-                entryDate: formatter.date(from: "01 Jan 2026")!,
-                exitDate: formatter.date(from: "31 Mar 2026")!
+                entryDate: formatter.date(from: "18 Nov 2025")!,
+                exitDate: formatter.date(from: "14 Feb 2026")!
             )
 
         ]
