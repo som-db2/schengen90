@@ -60,7 +60,7 @@ struct PlannerView: View {
                             in: Calendar.current.startOfDay(for: Date())...,
                             displayedComponents: .date
                         )
-                        .datePickerStyle(.wheel)
+                        .datePickerStyle(.graphical)
                         .labelsHidden()
 
                     }
