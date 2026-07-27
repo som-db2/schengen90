@@ -32,7 +32,21 @@ struct EditTripView: View {
     
     private var validationErrors: [String] {
 
-        TripValidator.validate(
+        if trip.isPlanned {
+
+            var errors: [String] = []
+
+            if exitDate < entryDate {
+
+                errors.append("Exit date cannot be before entry date.")
+
+            }
+
+            return errors
+
+        }
+
+        return TripValidator.validate(
             entryDate: entryDate,
             exitDate: exitDate
         )
