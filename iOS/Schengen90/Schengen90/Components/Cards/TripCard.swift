@@ -3,7 +3,7 @@
 //  Schengen90
 //
 //  Created by Som Kundu on 26/07/26.
-//
+//  Modified by Som Kundu on 27/07/26.
 
 //
 //  TripCard.swift
@@ -14,12 +14,42 @@ import SwiftUI
 
 struct TripCard: View {
 
-    let entryDate: Date
-    let exitDate: Date
-    let stayDays: Int
-    let status: String
-    let statusColor: Color
+    let trip: Trip
+    
+    private var badgeTitle: String {
 
+        switch TripStatusService.status(for: trip) {
+
+        case .planned:
+            return "Planned"
+
+        case .ongoing:
+            return "Ongoing"
+
+        case .completed:
+            return "Completed"
+
+        }
+
+    }
+
+    private var badgeColor: Color {
+
+        switch TripStatusService.status(for: trip) {
+
+        case .planned:
+            return AppColors.warning
+
+        case .ongoing:
+            return AppColors.success
+
+        case .completed:
+            return AppColors.secondaryText
+
+        }
+
+    }
+    
     var body: some View {
 
         CardContainer {
@@ -34,22 +64,22 @@ struct TripCard: View {
                 HStack(alignment: .top) {
 
                     StatusBadge(
-                        title: status,
-                        color: statusColor
+                        title: badgeTitle,
+                        color: badgeColor
                     )
-
+                    
                 }
 
                 // MARK: - Dates
 
                 Text(
-                    "\(DateFormatter.tripDate.string(from: entryDate)) → \(DateFormatter.tripDate.string(from: exitDate))"
+                    "\(DateFormatter.tripDate.string(from: trip.entryDate)) → \(DateFormatter.tripDate.string(from: trip.exitDate))"
                 )
                     .font(AppTypography.body)
 
                 // MARK: - Duration
 
-                Text("Duration: \(stayDays) day\(stayDays == 1 ? "" : "s")")
+                Text("Duration: \(trip.stayDays) day\(trip.stayDays == 1 ? "" : "s")")
                     .font(AppTypography.caption)
                     .foregroundStyle(AppColors.secondaryText)
 
@@ -66,43 +96,42 @@ struct TripCard: View {
     VStack(spacing: 20) {
 
         TripCard(
-            entryDate: Calendar.current.date(
-                from: DateComponents(
-                    year: 2026,
-                    month: 6,
-                    day: 11
-                )
-            )!,
-            exitDate: Calendar.current.date(
-                from: DateComponents(
-                    year: 2026,
-                    month: 7,
-                    day: 16
-                )
-            )!,
-            stayDays: 36,
-            status: "Completed",
-            statusColor: AppColors.success
+            trip: Trip(
+                entryDate: Calendar.current.date(
+                    from: DateComponents(
+                        year: 2026,
+                        month: 6,
+                        day: 11
+                    )
+                )!,
+                exitDate: Calendar.current.date(
+                    from: DateComponents(
+                        year: 2026,
+                        month: 7,
+                        day: 16
+                    )
+                )!
+            )
         )
 
         TripCard(
-            entryDate: Calendar.current.date(
-                from: DateComponents(
-                    year: 2026,
-                    month: 9,
-                    day: 2
-                )
-            )!,
-            exitDate: Calendar.current.date(
-                from: DateComponents(
-                    year: 2026,
-                    month: 9,
-                    day: 15
-                )
-            )!,
-            stayDays: 14,
-            status: "Planned",
-            statusColor: AppColors.warning
+            trip: Trip(
+                entryDate: Calendar.current.date(
+                    from: DateComponents(
+                        year: 2026,
+                        month: 9,
+                        day: 2
+                    )
+                )!,
+                exitDate: Calendar.current.date(
+                    from: DateComponents(
+                        year: 2026,
+                        month: 9,
+                        day: 15
+                    )
+                )!,
+                isPlanned: true
+            )
         )
 
     }
