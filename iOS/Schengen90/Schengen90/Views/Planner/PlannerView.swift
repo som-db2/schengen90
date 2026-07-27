@@ -185,16 +185,16 @@ struct PlannerView: View {
             .onAppear {
 
                 viewModel.calculate(
-                    existingTrips: existingTrips
+                    existingTrips: existingTrips.filter { !$0.isPlanned }
                 )
-
+                
             }
             .onChange(of: viewModel.plannedEntry) {
 
                 viewModel.calculate(
-                    existingTrips: existingTrips
+                    existingTrips: existingTrips.filter { !$0.isPlanned }
                 )
-
+                
             }
             .navigationTitle("Planner")
             .navigationBarTitleDisplayMode(.large)
