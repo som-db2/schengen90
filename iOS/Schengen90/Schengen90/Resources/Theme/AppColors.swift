@@ -25,6 +25,7 @@ enum AppColors {
 
     // Status
     static let success = Color.green
+    static let info = Color.blue
     static let warning = Color.orange
     static let error = Color.red
 }
