@@ -130,7 +130,11 @@ struct EditTripView: View {
                 }
 
             }
-            .navigationTitle("Edit Trip")
+            .navigationTitle(
+                trip.isPlanned
+                ? "Review Planned Trip"
+                : "Edit Trip"
+            )
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
 
@@ -146,13 +150,18 @@ struct EditTripView: View {
                 
                 ToolbarItem(placement: .topBarTrailing) {
 
-                    Button("Save") {
+                    Button(
+                        trip.isPlanned
+                        ? "Confirm Plan"
+                        : "Save"
+                    ) {
 
                         trip.entryDate = entryDate
                         trip.exitDate = exitDate
                         trip.notes = notes.trimmingCharacters(in: .whitespacesAndNewlines)
 
                         trip.updatedAt = Date()
+                        trip.isPlanned = false
 
                         dismiss()
 
