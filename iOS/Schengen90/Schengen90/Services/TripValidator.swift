@@ -39,29 +39,17 @@ struct TripValidator {
         //--------------------------------------------------
         // Rule 2
         //--------------------------------------------------
-        
+
         if entry > today {
 
             errors.append(
-                "Entry date cannot be in the future."
+                "Future trips should be created using the Planner tab."
             )
 
         }
-        
+                
         //--------------------------------------------------
         // Rule 3
-        //--------------------------------------------------
-
-        if exit > today {
-
-            errors.append(
-                "Exit date cannot be in the future."
-            )
-
-        }
-        
-        //--------------------------------------------------
-        // Rule 4
         //--------------------------------------------------
 
         let stayDays = DateCalculator.stayDays(
