@@ -18,7 +18,7 @@ struct Schengen90App: App {
 
         WindowGroup {
 
-            MainTabView()
+            RootView()
                 .environment(appState)
 
         }
