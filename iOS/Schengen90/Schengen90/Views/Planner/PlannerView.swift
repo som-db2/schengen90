@@ -64,20 +64,6 @@ struct PlannerView: View {
 
                     }
 
-                    DateField(
-                        title: "Planned Exit",
-                        date:
-                            viewModel.result?.latestLegalExit
-                            .map {
-                                DateFormatter.displayDate.string(
-                                    from: $0
-                                )
-                            }
-                            ?? "-"
-                    ) {
-
-                    }
-
                     // MARK: - Trip Summary
 
                     SectionHeader(
@@ -89,21 +75,11 @@ struct PlannerView: View {
                     ) {
 
                         InfoCard(
-                            title: "Trip Duration",
+                            title: "Maximum Stay",
                             value:
                                 viewModel.result
                                 .map {
                                     "\($0.simulatedDays) Days"
-                                }
-                                ?? "-"
-                        )
-
-                        InfoCard(
-                            title: "Remaining After Trip",
-                            value:
-                                viewModel.result
-                                .map {
-                                    "\($0.finalStatus.remainingDays) Days"
                                 }
                                 ?? "-"
                         )
@@ -194,7 +170,6 @@ struct PlannerView: View {
                 viewModel.calculate(
                     existingTrips: existingTrips.filter { !$0.isPlanned }
                 )
-                
             }
             .navigationTitle("Planner")
             .navigationBarTitleDisplayMode(.large)
