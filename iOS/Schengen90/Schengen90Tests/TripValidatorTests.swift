@@ -12,12 +12,16 @@ import Foundation
 
 struct TripValidatorTests {
 
+    // Validator Can be Created
+    
     @Test
     func validatorCanBeCreated() {
 
         _ = TripValidator()
 
     }
+    
+    // Overlapping Trips are Rejected
 
     @Test
     func overlappingTripsAreRejected() {
@@ -43,6 +47,35 @@ struct TripValidatorTests {
         )
 
         #expect(errors.isEmpty == false)
+
+    }
+    
+    // Touching Trips are Allowed
+    
+    @Test
+    func touchingTripsAreAllowed() {
+
+        let formatter = DateFormatter.tripDate
+
+        let trips = [
+
+            Trip(
+                entryDate: formatter.date(from: "01 Jan 2026")!,
+                exitDate: formatter.date(from: "10 Jan 2026")!
+            ),
+
+            Trip(
+                entryDate: formatter.date(from: "10 Jan 2026")!,
+                exitDate: formatter.date(from: "20 Jan 2026")!
+            )
+
+        ]
+
+        let errors = TripValidator.validate(
+            trips: trips
+        )
+
+        #expect(errors.isEmpty)
 
     }
 
