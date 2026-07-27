@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DisplayTripStatus {
+enum DisplayTripStatus: Equatable {
 
     case planned
     case ongoing
