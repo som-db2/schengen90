@@ -80,5 +80,15 @@ struct TripValidator {
         return errors
 
     }
+    
+    static func validate(
+            trips: [Trip]
+        ) -> [String] {
+
+            // We'll implement this next
+
+            []
+
+        }
 
 }
