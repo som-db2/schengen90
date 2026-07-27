@@ -100,15 +100,8 @@ struct TripsView: View {
                         } label: {
 
                             TripCard(
-                                entryDate: trip.entryDate,
-                                exitDate: trip.exitDate,
-                                stayDays: trip.stayDays,
-                                status: trip.isPlanned ? "Planned" : "Completed",
-                                statusColor: trip.isPlanned
-                                    ? AppColors.warning
-                                    : AppColors.success
+                                trip: trip
                             )
-
                         }
                         .buttonStyle(.plain)
 
