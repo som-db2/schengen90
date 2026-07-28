@@ -82,25 +82,27 @@ struct PlannerView: View {
                             spacing: AppSpacing.medium
                         ) {
 
-                            InfoCard(
+                            MetricCard(
                                 title: "Available\non Entry",
                                 value:
                                     viewModel.result
                                     .map {
-                                        "\($0.remainingDaysAtEntry) Days"
+                                        "\($0.remainingDaysAtEntry)"
                                     }
-                                    ?? "-"
+                                    ?? "-",
+                                unit: "Days"
                             )
                             .frame(maxWidth: .infinity)
 
-                            InfoCard(
+                            MetricCard(
                                 title: "Maximum\nStay",
                                 value:
                                     viewModel.result
                                     .map {
-                                        "\($0.simulatedDays) Days"
+                                        "\($0.simulatedDays)"
                                     }
-                                    ?? "-"
+                                    ?? "-",
+                                unit: "Days"
                             )
                             .frame(maxWidth: .infinity)
 
