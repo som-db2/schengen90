@@ -28,7 +28,7 @@ struct TripCard: View {
 
             VStack(
                 alignment: .leading,
-                spacing: AppSpacing.medium
+                spacing: AppSpacing.small
             ) {
 
                 // MARK: - Header
