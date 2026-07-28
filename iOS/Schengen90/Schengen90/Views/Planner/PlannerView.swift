@@ -78,15 +78,33 @@ struct PlannerView: View {
                         spacing: AppSpacing.medium
                     ) {
 
-                        InfoCard(
-                            title: "Maximum Stay",
-                            value:
-                                viewModel.result
-                                .map {
-                                    "\($0.simulatedDays) Days"
-                                }
-                                ?? "-"
-                        )
+                        HStack(
+                            spacing: AppSpacing.medium
+                        ) {
+
+                            InfoCard(
+                                title: "Available\non Entry",
+                                value:
+                                    viewModel.result
+                                    .map {
+                                        "\($0.remainingDaysAtEntry) Days"
+                                    }
+                                    ?? "-"
+                            )
+                            .frame(maxWidth: .infinity)
+
+                            InfoCard(
+                                title: "Maximum\nStay",
+                                value:
+                                    viewModel.result
+                                    .map {
+                                        "\($0.simulatedDays) Days"
+                                    }
+                                    ?? "-"
+                            )
+                            .frame(maxWidth: .infinity)
+
+                        }
 
                         InfoCard(
                             title: "Latest Legal Exit",
@@ -143,15 +161,16 @@ struct PlannerView: View {
             .onAppear {
 
                 viewModel.calculate(
-                    existingTrips: existingTrips.filter { !$0.isPlanned }
+                    existingTrips: existingTrips
                 )
-                
+
             }
             .onChange(of: viewModel.plannedEntry) {
 
                 viewModel.calculate(
-                    existingTrips: existingTrips.filter { !$0.isPlanned }
+                    existingTrips: existingTrips
                 )
+
             }
             
             .alert(
