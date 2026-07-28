@@ -52,16 +52,19 @@ struct HomeView: View {
                 SectionHeader(title: "Remaining Days")
                 CardContainer {
 
-//                    Text("Remaining Days")
-//                        .font(AppTypography.heading)
+                    VStack(
+                        spacing: AppSpacing.xxSmall
+                    ) {
 
-                    Text("\(viewModel.remainingDays)")
-                        .font(AppTypography.hero)
-                        .frame(maxWidth: .infinity)
+                        Text("\(viewModel.remainingDays)")
+                            .font(AppTypography.hero)
 
-                    Text("Days Remaining")
-                        .font(AppTypography.body)
-                        .frame(maxWidth: .infinity)
+                        Text("Days Remaining")
+                            .font(AppTypography.body)
+                            .foregroundStyle(AppColors.secondaryText)
+
+                    }
+                    .frame(maxWidth: .infinity)
 
                 }
 
@@ -70,9 +73,6 @@ struct HomeView: View {
                 SectionHeader(title: "Latest Legal Exit")
                 
                 CardContainer {
-
-//                    Text("Latest Legal Exit")
-//                        .font(AppTypography.heading)
 
                     Text(viewModel.latestLegalExit)
                         .font(AppTypography.title)
