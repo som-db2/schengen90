@@ -18,6 +18,10 @@ final class HomeViewModel {
 
     var tripStatus: String = "Allowed"
     
+    var greetingTitle: String = "Welcome back."
+
+    var greetingMessage: String = ""
+    
     var nextPlannedTrip: Trip?
     
     var recentTrips: [Trip] = []
@@ -36,6 +40,9 @@ final class HomeViewModel {
         )
 
         remainingDays = status.remainingDays
+        
+        greetingMessage =
+        "Plan and track your Schengen stays"
 
         if let latestExit = calculator.latestLegalExit(
             existingTrips: historicalTrips,
@@ -64,9 +71,10 @@ final class HomeViewModel {
             .first
         
         recentTrips = trips
-            .filter { !$0.isPlanned }
             .sorted {
+                
                 $0.entryDate > $1.entryDate
+                
             }
 
     }
