@@ -57,13 +57,27 @@ final class TripRepository {
 
     }
     
-    // MARK: - Planned Trip
+    // MARK: - Planned Trips
+
+    func plannedTripCount() -> Int {
+
+        allTrips()
+            .filter(\.isPlanned)
+            .count
+
+    }
 
     @discardableResult
     func addPlannedTrip(
         entryDate: Date,
         latestLegalExit: Date
-    ) -> Trip {
+    ) -> Trip? {
+
+        guard plannedTripCount() < 2 else {
+
+            return nil
+
+        }
 
         let trip = Trip(
             entryDate: entryDate,
