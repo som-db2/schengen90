@@ -99,27 +99,6 @@ struct PlannerView: View {
 
                     }
 
-                    // MARK: - Status
-
-                    HStack {
-
-                        Spacer()
-
-                        StatusBadge(
-                            title:
-                                viewModel.result?.finalStatus.isCompliant == true
-                                ? "Safe"
-                                : "Not Safe",
-                            color:
-                                viewModel.result?.finalStatus.isCompliant == true
-                                ? AppColors.success
-                                : AppColors.error
-                        )
-
-                        Spacer()
-
-                    }
-
                     // MARK: - Plan Trip
 
                     PrimaryButton(
@@ -156,7 +135,9 @@ struct PlannerView: View {
                     }
 
                 }
-                .padding(AppSpacing.screen)
+                .padding(.horizontal, AppSpacing.screen)
+                .padding(.top, AppSpacing.xLarge)
+                .padding(.bottom, AppSpacing.large)
 
             }
             .onAppear {
