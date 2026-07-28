@@ -23,6 +23,16 @@ struct StaySimulator {
 
         var latestLegalExit: Date? = nil
         
+        let entryWindowDates = rollingWindow.dates(
+            from: occupiedDates,
+            referenceDate: proposedEntryDate
+        )
+
+        let remainingDaysAtEntry = max(
+            0,
+            90 - entryWindowDates.count
+        )
+        
         while true {
             
             simulatedDates.insert(candidateExit)
@@ -80,6 +90,7 @@ struct StaySimulator {
 
         return StaySimulationResult(
             entryDate: proposedEntryDate,
+            remainingDaysAtEntry: remainingDaysAtEntry,
             latestLegalExit: latestLegalExit,
             simulatedDays: simulatedDays,
             finalStatus: finalStatus
