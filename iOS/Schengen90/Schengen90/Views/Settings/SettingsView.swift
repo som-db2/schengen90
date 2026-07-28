@@ -94,7 +94,8 @@ struct SettingsView: View {
                     }
 
                 }
-                .padding(20)
+//                .padding(20)
+                .padding(.horizontal, AppSpacing.screen)
 
             }
             .navigationTitle("Settings")
