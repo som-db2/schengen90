@@ -155,7 +155,7 @@ struct TripsView: View {
                 }
 
             }
-            .padding(.horizontal, AppSpacing.large)
+            .padding(.horizontal, AppSpacing.screen)
             .padding(.top, AppSpacing.xxLarge)
             .padding(.bottom, AppSpacing.large)
 
