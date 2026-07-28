@@ -21,6 +21,9 @@ struct PlannerView: View {
 
     @State
     private var showEntryPicker = false
+    
+    @State
+    private var showPlannedTripLimitAlert = false
 
     @Query(
         sort: \Trip.entryDate,
@@ -114,19 +117,16 @@ struct PlannerView: View {
 
                         }
 
-                        let plannedTripCount = existingTrips.filter(\.isPlanned).count
+                        guard let trip = repository.addPlannedTrip(
+                            entryDate: viewModel.plannedEntry,
+                            latestLegalExit: latestLegalExit
+                        ) else {
 
-                        guard plannedTripCount < 2 else {
-
+                            showPlannedTripLimitAlert = true
                             return
 
                         }
 
-                        let trip = repository.addPlannedTrip(
-                            entryDate: viewModel.plannedEntry,
-                            latestLegalExit: latestLegalExit
-                        )
-                        
                         appState.selectedTrip = trip
                         appState.selectedTab = .trips
 
@@ -152,6 +152,21 @@ struct PlannerView: View {
                 viewModel.calculate(
                     existingTrips: existingTrips.filter { !$0.isPlanned }
                 )
+            }
+            
+            .alert(
+                "Maximum Planned Trips",
+                isPresented: $showPlannedTripLimitAlert
+            ) {
+
+                Button("OK", role: .cancel) { }
+
+            } message: {
+
+                Text(
+                    "You can only keep two planned trips at a time. Delete or complete an existing planned trip before creating another."
+                )
+
             }
             .navigationTitle("Planner")
             .navigationBarTitleDisplayMode(.large)
