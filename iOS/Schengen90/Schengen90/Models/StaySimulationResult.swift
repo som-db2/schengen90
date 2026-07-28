@@ -10,6 +10,8 @@ import Foundation
 struct StaySimulationResult {
 
     let entryDate: Date
+    
+    let remainingDaysAtEntry: Int
 
     let latestLegalExit: Date?
 
