@@ -3,11 +3,7 @@
 //  Schengen90
 //
 //  Created by Som Kundu on 26/07/26.
-//
-
-//
-//  InfoCard.swift
-//  Schengen90
+//  Modified by Som Kundu on 29/07/26.
 //
 
 import SwiftUI
@@ -33,37 +29,13 @@ struct InfoCard: View {
                     .font(AppTypography.title)
 
             }
-
-            .frame(maxWidth: .infinity,
-                   alignment: .leading)
-
+            .frame(
+                maxWidth: .infinity,
+                alignment: .leading
+            )
 
         }
 
     }
-
-}
-
-#Preview {
-
-    VStack(spacing: AppSpacing.large) {
-
-        InfoCard(
-            title: "Trip Duration",
-            value: "13 Days"
-        )
-
-        InfoCard(
-            title: "Remaining Days",
-            value: "65"
-        )
-
-        InfoCard(
-            title: "Latest Legal Exit",
-            value: "22 Sep 2026"
-        )
-
-    }
-    .padding()
 
 }
